@@ -1,0 +1,142 @@
+https://artisan.page/10.x/#list
+
+composer create-project --prefer-dist laravel/laravel electronics_shop "10.*"
+cd electronics_shop
+php artisan migrate
+php artisan make:controller UserController
+
+php artisan make:controller ProductController --resource
+
+php artisan make:seeder UserSeeder
+
+php artisan db:seed --class=UserSeeder
+
+php artisan make:migration create_products_table
+
+php artisan make:migration create_customers_table
+php artisan make:migration create_orders_table
+php artisan make:migration create_payments_table
+php artisan make:migration create_order_details_table --create=order_details
+``
+php artisan migrate --path=/database/migrations/2024_07_22_134904_create_users_table.php
+php artisan make:migration create_users_table
+php artisan migrate --path=/database/migrations/2024_07_22_093029_create_categories_table.php
+php artisan migrate --path=/database/migrations/2024_07_22_114007_create_customers_table.php
+php artisan migrate --path=/database/migrations/2024_07_22_115701_create_orders_table.php
+php artisan migrate --path=/database/migrations/2024_07_22_120538_create_order_details_table.php
+
+php artisan make:model Product
+php artisan make:model Category
+php artisan make:model Order
+php artisan make:model OrderDetail
+php artisan make:model Payment
+
+php artisan route:list
+dd($res)
+php artisan make:controller AdminController
+php artisan make:controller CustomerController
+
+{{ asset(' ')}}
+php artisan make:controller ProductController --resource
+php artisan make:controller CategoryController --resource;
+php artisan storage:link
+
+return redirect()->back()->with('success', 'Product added to cart successfully!');
+php artisan tinker
+
+ $cart[1]=["id"=>1, "email"=>"hafiz@gmail.com", name"=>"umar","qty"=>1,"price"=>1200];
+
+ $cart[2]=["id"=>2, "email"=>"hafiz@gmail.com", name"=>"umar","qty"=>2,"price"=>1200];
+
+
+ $cart[3]=["id"=>3, "email"=>"imran@gmail.com", name"=>"umar","qty"=>1,"price"=>1200];
+ $cart[4]=["id"=>4, "email"=>"imran@gmail.com", name"=>"umar","qty"=>1,"price"=>1200];
+
+session()->put('cart',$cart[1]);
+session()->get('cart');
+
+$cart["hafiz@gmail.com"] =["id"=>3,"email" => "hafiz@gmail.com", "name" => "laptop", "qty" => 2, "price" => 2000];
+    $cart["imran@gmail.com"] =[2]=>["id"=>4,"email" => "imran@gmail.com", "name" => "laptop", "qty" => 3, "price" => 2000];
+      session()->put('cart', $cart);
+    //dd($cart[3]["email"]);
+    //dd($cart[1]["name"]);//index and value
+   // dd($cart["hafiz@gmail.com"]);
+
+   https://laravel.com/docs/10.x/helpers
+
+ $cart = session()->get('cart', []);
+
+    // Ensure product data is being added correctly
+    $cart["hafiz@gmail.com"] =
+    [
+    ["id"=>2,"email" => "hafiz@gmail.com", "name" => "laptop", "qty" => 2, "price" => 2000],
+    ["id"=>1,"email" => "hafiz@gmail.com", "name" => "laptop", "qty" => 5, "price" => 2000],
+    ];
+
+
+use Illuminate\Support\Arr;
+ 
+$array = [
+    ['customer' => ['id' => 1, 'name' => 'A',email=>'hafiz@gmail.com','qty'=>1,'price'=>100]],
+    ['customer' => ['id' => 2, 'name' => 'B',email=>'hafiz@gmail.com','qty'=>3,'price'=>100]],
+	  ['customer' => ['id' => 1, 'name' => 'A',email=>'ali@gmail.com','qty'=>1,'price'=>100]],
+    ['customer' => ['id' => 2, 'name' => 'B',email=>'ali@gmail.com','qty'=>2,'price'=>100]],
+];
+ 
+$names = Arr::pluck($array, 'customer.name');
+ 
+ 
+ php artisan make:middleware Loggedin
+ 
+ php artisan config:Cache
+ session()->forget('key');
+ session()->flush();
+ logger('Loggedin middleware called.');
+  php artisan make:middleware IsAdmin
+  php artisan config:Cache
+  php artisan make:middleware IsLogin
+ php artisan config:Cache
+ php artisan tinker
+ $myproduct=new App\Models\Product;
+ $myproduct::all();
+  Product::category();
+
+  php artisan tinker
+
+// Create a category
+$category = new App\Models\Category;
+$category->CategoryName = 'Electronics';
+$category->save();
+
+// Create a product and associate it with the category
+$product = new App\Models\Product;
+$product->ProductName = 'Smartphone';
+$product->Description = 'A smartphone with a 6.1-inch display.';
+$product->Price = 699.99;
+$product->StockQuantity = 50;
+$product->CategoryID = $category->id;
+
+$product->save();
+
+// Test the belongsTo relationship
+$product = App\Models\Product::find(1);
+$category = $product->category;
+echo $category->name;
+
+// Create an order detail and associate it with the product
+$orderDetail = new App\Models\OrderDetail;
+$orderDetail->OrderID = 1; // Assuming you have an order with ID 1
+$orderDetail->ProductID = $product->ProductID;
+$orderDetail->Quantity = 2;
+$orderDetail->Price = $product->Price;
+$orderDetail->save();
+
+// Test the hasMany relationship
+$product = App\Models\Product::find(2);
+$orderDetails = $product->orderDetails;
+foreach ($orderDetails as $orderDetail) 
+{
+    echo $orderDetail->Quantity;
+}
+
+exit
